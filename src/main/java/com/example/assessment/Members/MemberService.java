@@ -10,7 +10,6 @@ public class MemberService {
     private MemberRepository memberRepository;
 
     public Member addMember(Member member) {
-        System.out.println("הגעתי ל-POST /members עם חבר חדש: " + member);
         return memberRepository.save(member);
     }
 
