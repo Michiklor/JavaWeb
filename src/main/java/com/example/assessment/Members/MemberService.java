@@ -16,5 +16,10 @@ public class MemberService {
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
     }
+    public boolean authenticate(String email, String password) {
+        Member member = memberRepository.findByEmail(email);
+        return member != null && member.getPassword().equals(password);
+    }
+    
 }
 
