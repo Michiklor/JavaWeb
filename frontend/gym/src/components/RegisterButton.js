@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RegisterForm from './RegisterForm'; // ייבוא הקומפוננטה RegisterForm
+import RegisterForm from './RegisterForm'; 
 
 const RegisterButton = () => {
   const [showRegisterForm, setShowRegisterForm] = useState(false);

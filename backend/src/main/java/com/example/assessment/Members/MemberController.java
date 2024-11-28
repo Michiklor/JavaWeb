@@ -55,7 +55,7 @@ public class MemberController {
         Map<String, String> response = new HashMap<>();
         
         try {
-            memberService.addMember(member); // הוספת המשתמש דרך השירות
+            memberService.addMember(member); 
             response.put("message", "Registration successful!");
             return ResponseEntity.status(HttpStatus.CREATED)
                                  .contentType(MediaType.APPLICATION_JSON)
