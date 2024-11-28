@@ -1,13 +1,10 @@
 import './App.css';
-import LoginButton from './components/LoginButton';
-import RegisterButton from './components/RegisterButton'
-
+import Header from './components/Header';
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <LoginButton />
-       <RegisterButton/>
+       <Header/>
       </header>
     </div>
   );
