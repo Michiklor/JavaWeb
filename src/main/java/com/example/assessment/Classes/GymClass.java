@@ -1,5 +1,7 @@
 package com.example.assessment.Classes;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,6 +13,7 @@ public class GymClass {
     private String instructor;
     private String schedule; // e.g., "Monday 10:00 AM - 11:00 AM"
     private int capacity;
+    private List<String> registeredMembers;
 
     // Default Constructor
     public GymClass() {}
@@ -38,4 +41,7 @@ public class GymClass {
 
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }
+
+    public List<String> getRegisteredMembers() { return registeredMembers; }
+    public void setRegisteredMembers(List<String> registeredMembers) { this.registeredMembers = registeredMembers; }
 }

@@ -2,6 +2,9 @@ package com.example.assessment.Members;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,6 +22,8 @@ public class Member {
     @NotEmpty(message = "Email is required") 
     @Email(message = "Email should be valid") 
     private String email;
+    private List<String> registeredClasses; 
+    private List<String> history;
     
 
     // Default Constructor
@@ -66,4 +71,9 @@ public class Member {
     public void setPassword(String password) { 
         this.password = password;
     }
+    public List<String> getRegisteredClasses() { return registeredClasses; }
+    public void setRegisteredClasses(List<String> registeredClasses) { this.registeredClasses = registeredClasses; }
+
+    public List<String> getHistory() { return history; }
+    public void setHistory(List<String> history) { this.history = history; }
 }

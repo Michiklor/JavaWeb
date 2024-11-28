@@ -20,6 +20,10 @@ public class MemberService {
         Member member = memberRepository.findByEmail(email);
         return member != null && member.getPassword().equals(password);
     }
+    public Member getMemberById(String memberId) {
+        return memberRepository.findById(memberId).orElse(null);
+    }
+    
     
 }
 
