@@ -28,7 +28,7 @@ public class GlobalCorsConfig {
 
        
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // חל על כל הנתיבים
+        source.registerCorsConfiguration("/**", configuration); 
 
         return source;
     }

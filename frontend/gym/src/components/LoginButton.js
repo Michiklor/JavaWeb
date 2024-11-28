@@ -40,7 +40,7 @@ const LoginButton = () => {
     <div>
       <button
         type="button"
-        className="absolute top-4 left-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        className="absolute top-4 left-6 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         onClick={handleLoginClick}
       >
         כניסה
@@ -51,28 +51,28 @@ const LoginButton = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email
+                מייל
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md text-black"
-                placeholder="Enter your email"
+                placeholder="הכנס מייל"
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
               />
             </div>
             <div className="mb-4">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                קוד
               </label>
               <input
                 type="password"
                 id="password"
                 name="password"
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md text-black"
-                placeholder="Enter your password"
+                placeholder="הכנס סיסמה"
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)} 
               />

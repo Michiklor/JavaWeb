@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/members")
 public class MemberController {
@@ -47,6 +47,24 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                                  .contentType(MediaType.APPLICATION_JSON)  
                                  .body(response);  
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/register")
+    public ResponseEntity<Map<String, String>> register(@RequestBody Member member) {
+        Map<String, String> response = new HashMap<>();
+        
+        try {
+            memberService.addMember(member); // הוספת המשתמש דרך השירות
+            response.put("message", "Registration successful!");
+            return ResponseEntity.status(HttpStatus.CREATED)
+                                 .contentType(MediaType.APPLICATION_JSON)
+                                 .body(response);
+        } catch (Exception e) {
+            response.put("message", "Registration failed: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                                 .contentType(MediaType.APPLICATION_JSON)
+                                 .body(response);
         }
     }
     
