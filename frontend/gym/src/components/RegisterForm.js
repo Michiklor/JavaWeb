@@ -56,6 +56,7 @@ const RegisterForm = () => {
             placeholder="הכנס את שמך"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            dir="rtl"
           />
         </div>
         <div className="mb-4">
@@ -70,6 +71,7 @@ const RegisterForm = () => {
             placeholder="הכנס מייל"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            dir="rtl"
           />
         </div>
         <div className="mb-4">
@@ -84,6 +86,7 @@ const RegisterForm = () => {
             placeholder="הכנס סיסמה"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            dir="rtl"
           />
         </div>
         <button
