@@ -32,23 +32,25 @@ public class MemberController {
         return memberService.getAllMembers();
     }
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
-        boolean isAuthenticated = memberService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-        Map<String, String> response = new HashMap<>();
+@PostMapping("/login")
+public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+    Member member = memberService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+    Map<String, String> response = new HashMap<>();
+    if (member != null) { 
         
-        if (isAuthenticated) {
-            response.put("message", "Login successful!");
-            return ResponseEntity.ok()
-                                 .contentType(MediaType.APPLICATION_JSON)  
-                                 .body(response);  
-        } else {
-            response.put("message", "Invalid credentials");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                                 .contentType(MediaType.APPLICATION_JSON)  
-                                 .body(response);  
-        }
+        response.put("message", "Login successful!");
+        response.put("username", member.getName());  
+        return ResponseEntity.ok()
+                             .contentType(MediaType.APPLICATION_JSON)
+                             .body(response);  
+    } else {
+        response.put("message", "Invalid credentials");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                             .contentType(MediaType.APPLICATION_JSON)
+                             .body(response);  
     }
+}
+
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Member member) {

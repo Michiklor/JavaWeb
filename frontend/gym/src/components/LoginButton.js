@@ -1,38 +1,46 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext'; // ייבוא ה-hook של ה-AuthContext
 
 const LoginButton = () => {
+  const { isLoggedIn, login, logout } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginMessage, setLoginMessage] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleLoginClick = () => {
-    setShowLoginForm(!showLoginForm); 
+    setShowLoginForm(!showLoginForm);
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const loginRequest = {
-      email: email, 
-      password: password, 
+      email: email,
+      password: password,
     };
 
     try {
       const response = await fetch('http://localhost:8080/members/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(loginRequest), 
+        body: JSON.stringify(loginRequest),
       });
 
-      const data = await response.json(); 
+      const data = await response.json();
       console.log('Response:', data);
-      setLoginMessage(data.message); 
+      setLoginMessage(data.message);
+      setUsername(data.username);
+      login(data.username);
+      setTimeout(() => {
+        setShowLoginForm(false);
+      }, 2000);
     } catch (error) {
       console.error('Error:', error);
-      setLoginMessage('Error during login'); 
+      setLoginMessage('Error during login');
     }
   };
 
@@ -59,8 +67,8 @@ const LoginButton = () => {
                 name="email"
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md text-black"
                 placeholder="הכנס מייל"
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 dir="rtl"
               />
             </div>
@@ -74,8 +82,8 @@ const LoginButton = () => {
                 name="password"
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md text-black"
                 placeholder="הכנס סיסמה"
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 dir="rtl"
               />
             </div>
