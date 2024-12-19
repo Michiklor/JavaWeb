@@ -52,7 +52,7 @@ const Header = () => {
             )}
           </div>
           <div className="flex justify-center items-center w-full">
-            <img src={logo} alt="Logo" className="h-16 w-16" />
+            <img src={logo} alt="Logo" className="h-20 w-20" />
           </div>
           
           <div className="relative">

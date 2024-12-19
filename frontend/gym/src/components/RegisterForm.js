@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google'; // יבוא של כפתור גוגל
 
 const RegisterForm = () => {
   const [name, setName] = useState('');
@@ -38,6 +39,10 @@ const RegisterForm = () => {
       console.error('Error:', error);
       setRegistrationMessage('An error occurred during registration.');
     }
+  };
+
+  const handleGoogleLogin = (response) => {
+    console.log('Google Login Response:', response);
   };
 
   return (
@@ -99,6 +104,14 @@ const RegisterForm = () => {
       {registrationMessage && (
         <div className="mt-4 text-center text-red-600">{registrationMessage}</div>
       )}
+
+      <div className="mt-4">
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}  // פונקציה שתטפל בתגובה של גוגל
+          onError={() => console.log('Google Login Failed')}  // אם יש טעות
+          useOneTap  // אפשרות לשימוש בהתחברות מהירה
+        />
+      </div>
     </div>
   );
 };
