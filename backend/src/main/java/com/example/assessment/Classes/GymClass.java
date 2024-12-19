@@ -11,7 +11,8 @@ public class GymClass {
     private String id;
     private String name;
     private String instructor;
-    private String schedule; // e.g., "Monday 10:00 AM - 11:00 AM"
+    private String day; // e.g., "Monday"
+    private String time; // e.g., "10:00 AM - 11:00 AM"
     private int capacity;
     private List<String> registeredMembers;
 
@@ -19,10 +20,11 @@ public class GymClass {
     public GymClass() {}
 
     // Constructor
-    public GymClass(String name, String instructor, String schedule, int capacity) {
+    public GymClass(String name, String instructor, String day, String time, int capacity) {
         this.name = name;
         this.instructor = instructor;
-        this.schedule = schedule;
+        this.day = day;
+        this.time = time;
         this.capacity = capacity;
     }
 
@@ -36,8 +38,11 @@ public class GymClass {
     public String getInstructor() { return instructor; }
     public void setInstructor(String instructor) { this.instructor = instructor; }
 
-    public String getSchedule() { return schedule; }
-    public void setSchedule(String schedule) { this.schedule = schedule; }
+    public String getDay() { return day; }
+    public void setDay(String day) { this.day = day; }
+
+    public String getTime() { return time; }
+    public void setTime(String time) { this.time = time; }
 
     public int getCapacity() { return capacity; }
     public void setCapacity(int capacity) { this.capacity = capacity; }

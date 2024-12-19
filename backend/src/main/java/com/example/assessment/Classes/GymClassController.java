@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/classes")
 public class GymClassController {
@@ -17,8 +17,9 @@ public class GymClassController {
 
     @PostMapping
     public GymClass addClass(@RequestBody GymClass gymClass) {
-        return gymClassService.addClass(gymClass);
-    }
+    return gymClassService.addClass(gymClass);
+}
+
 
     @GetMapping
     public List<GymClass> getAllClasses() {
