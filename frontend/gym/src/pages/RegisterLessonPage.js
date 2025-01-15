@@ -7,9 +7,18 @@ const days = ["ש", "ו", "ה", "ד", "ג", "ב", "א"];
 
 export const RegisterLessonPage = () => {
   const [gymClasses, setGymClasses] = useState([]);
+  const [registeredClasses, setRegisteredClasses] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const memberId = localStorage.getItem("memberId");
+    if (!memberId) {
+      alert("Please log in first.");
+      navigate('/');
+      return;
+    }
+
+    // Fetching all classes
     axios
       .get('/classes')
       .then((response) => {
@@ -18,19 +27,71 @@ export const RegisterLessonPage = () => {
       .catch((error) => {
         console.error('Error fetching the gym classes:', error);
       });
-  }, []);
+
+    // Fetching the classes the user is registered to
+    axios
+      .get(`/members/${memberId}/registered-classes`)
+      .then((response) => {
+        setRegisteredClasses(response.data || []);
+      })
+      .catch((error) => {
+        console.error('Error fetching registered classes:', error);
+      });
+  }, [navigate]);
+
+  const handleEnroll = (classId) => {
+    const memberId = localStorage.getItem("memberId");
+
+    if (!memberId) {
+      alert("Please log in first.");
+      return;
+    }
+
+    axios
+      .post('/enrollments/register', { memberId, classId })
+      .then((response) => {
+        alert(`הרשמה בוצעה בהצלחה: ${response.data}`);
+        setRegisteredClasses((prev) => [...prev, classId]);
+      })
+      .catch((error) => {
+        console.error("Error during enrollment:", error);
+        alert(`שגיאה בהרשמה: ${error.response?.data || 'שגיאה לא ידועה'}`);
+      });
+  };
+
+  const handleUnenroll = (classId) => {
+    const memberId = localStorage.getItem("memberId");
+    console.log(" memberId", memberId)
+    if (!memberId) {
+      alert("Please log in first.");
+      return;
+    }
+
+    axios
+      .post('/enrollments/unregister', { memberId, classId })
+      .then((response) => {
+        alert(`הרשמה בוטלה בהצלחה: ${response.data}`);
+        setRegisteredClasses((prev) => prev.filter((id) => id !== classId));
+      })
+      .catch((error) => {
+        console.error("Error during unenrollment:", error);
+        alert(`שגיאה בביטול הרשמה: ${error.response?.data || 'שגיאה לא ידועה'}`);
+      });
+  };
 
   const getLessonsForDay = (day) => {
     const lessonsForDay = gymClasses.filter((gymClass) => gymClass.day === day);
 
     lessonsForDay.sort((a, b) => {
-      const timeA = a.time.split(" - ")[0]; // השעה הראשונה בטווח
+      const timeA = a.time.split(" - ")[0]; 
       const timeB = b.time.split(" - ")[0];
       return new Date(`1970-01-01T${timeA}`) - new Date(`1970-01-01T${timeB}`);
     });
 
     return lessonsForDay;
   };
+
+  const isRegistered = (classId) => registeredClasses.includes(classId);
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -80,9 +141,21 @@ export const RegisterLessonPage = () => {
                       <div className="text-sm text-gray-500">
                         {lesson.instructor}
                       </div>
-                      <button className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 shadow-md">
-                        הרשמה
-                      </button>
+                      {isRegistered(lesson.id) ? (
+                        <button
+                          onClick={() => handleUnenroll(lesson.id)}
+                          className="mt-2 px-4 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 shadow-md"
+                        >
+                          ביטול
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => handleEnroll(lesson.id)}
+                          className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 shadow-md"
+                        >
+                          הרשמה
+                        </button>
+                      )}
                     </div>
                   ))}
                 </td>

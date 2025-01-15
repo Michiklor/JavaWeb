@@ -39,7 +39,8 @@ public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest login
     if (member != null) { 
         
         response.put("message", "Login successful!");
-        response.put("username", member.getName());  
+        response.put("username", member.getName()); 
+        response.put("memberId", member.getId()); 
         return ResponseEntity.ok()
                              .contentType(MediaType.APPLICATION_JSON)
                              .body(response);  
