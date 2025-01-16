@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { GoogleLogin } from '@react-oauth/google'; // יבוא של כפתור גוגל
 
-const RegisterForm = () => {
+
+const RegisterForm: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [registrationMessage, setRegistrationMessage] = useState(''); 
+  const [registrationMessage, setRegistrationMessage] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const newMember = {
@@ -41,7 +41,7 @@ const RegisterForm = () => {
     }
   };
 
-  const handleGoogleLogin = (response) => {
+  const handleGoogleLogin = (response: any) => {
     console.log('Google Login Response:', response);
   };
 
@@ -106,14 +106,15 @@ const RegisterForm = () => {
       )}
 
       <div className="mt-4">
-        <GoogleLogin
-          onSuccess={handleGoogleLogin}  // פונקציה שתטפל בתגובה של גוגל
-          onError={() => console.log('Google Login Failed')}  // אם יש טעות
-          useOneTap  // אפשרות לשימוש בהתחברות מהירה
-        />
+        {/* <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => console.log('Google Login Failed')}
+          useOneTap
+        /> */}
       </div>
     </div>
   );
 };
 
 export default RegisterForm;
+
